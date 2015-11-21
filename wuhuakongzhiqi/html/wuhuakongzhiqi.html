@@ -1,0 +1,1783 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>设备联动</title>
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <script type="text/javascript" src="../script/mqttws31.js"></script>
+    <script type="text/javascript" src="../script/jquery-2.1.3.js"></script>
+</head>
+<body>
+    <div class="wrapper wuhuakongzhiqi">
+        <!-- header -->
+        <header id="header" class="header">
+            <div class="head">
+                <a class="left" onclick="initpage()" id="backleft">返回</a>
+                <span class="center" id="device_name">设置设定</span>
+            </div>
+        </header>
+        <!-- content -->
+        <div class="content">
+            <div class="block showselect showdroppadding clearfix">
+                <div class="col_50 systime">
+                    <img class="pic" src="../image/systime.svg">
+                    <span class="txt">系统时间</span>
+                    <div class="val">10:10:10</div>
+                </div>
+                <div class="col_50 lighttime">
+                    <img class="pic" src="../image/lighttime.svg">
+                    <span class="txt">背光时间</span>
+                    <div class="val">常亮</div>
+                </div>
+                <div class="col_50 lightlevel">
+                    <img class="pic" src="../image/systime.svg">
+                    <span class="txt">灯光亮度</span>
+                    <div class="val">30%</div>
+                </div>
+                <div class="col_50 ctlmode">
+                    <img class="pic" src="../image/ctlmode.svg">
+                    <span class="txt">控制方式</span>
+                    <div class="val">面板手动控制</div>
+                </div>
+                <div class="col_50 inputio">
+                    <img class="pic" src="../image/inputio.svg">
+                    <span class="txt">输入端口</span>
+                    <div class="val"></div>
+                </div>
+                <div class="col_50 outputio">
+                    <img class="pic" src="../image/outputio.svg">
+                    <span class="txt">输出端口</span>
+                    <div class="val"></div>
+                </div>
+            </div>
+            <div class="block dropselect showdroppadding clearfix">
+                <div class="intmode showdrop clearfix">
+                    <div class="col_50">
+                        <img src="../image/intmode.svg">
+                        <span>间隙模式</span>
+                    </div>
+                    <div class="col_50">
+                        <img src="../image/foldbtn.svg">
+                    </div>
+                </div>
+                <div class="intmodeset clearfix">   
+                    <div class="col_50">
+                        <span>风间隙模式</span>
+                        <img src="../image/closebtn.svg">
+                    </div>
+                    <div class="col_50">
+                        <span>雾间隙模式</span>
+                        <img src="../image/closebtn.svg">
+                    </div>
+                </div>
+                <div class="inttime showdrop clearfix">
+                    <div class="col_50">
+                        <img src="../image/inttime.svg">
+                        <span>间隙时间</span>
+                    </div>
+                    <div class="col_50">
+                        <img src="../image/foldbtn.svg">
+                    </div>
+                </div>
+                <div class="inttimeset clearfix">   
+                    <div class="col_50">
+                        <span>间隙开</span>
+                        <input value="20">
+                        <span>设置</span>
+                    </div>
+                    <div class="col_50">
+                        <span>间隙关</span>
+                        <input value="20">
+                        <span>设置</span>
+                    </div>
+                </div>
+            </div>
+            <div class="block timedrop showdroppadding clearfix">
+                <div class="timswitch showdrop clearfix">
+                    <div class="col_50">
+                        <img src="../image/timswitch.svg">
+                        <span>定时开关设定</span>
+                    </div>
+                    <div class="col_50">
+                        <img src="../image/foldbtn.svg">
+                    </div>
+                </div>
+                <div class="timswitchset clearfix">
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>风定时</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>雾定时</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>灯定时</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                </div>
+                <div class="timtime showdrop clearfix">
+                    <div class="col_50">
+                        <img src="../image/timtime.svg">
+                        <span>定时时间设定</span>
+                    </div>
+                    <div class="col_50">
+                        <img src="../image/foldbtn.svg">
+                    </div>
+                </div>
+                <div class="timtimeset clearfix">
+                    <div class="wrap">
+                        <div class="col_100">
+                            <span>风定时开：</span>
+                            <input value="10">
+                            <span>时</span>
+                            <input value="10">
+                            <span>分</span>
+                            <span>设置</span>
+                        </div>
+                        <div class="col_100">
+                            <span>风定时关：</span>
+                            <input value="10">
+                            <span>时</span>
+                            <input value="10">
+                            <span>分</span>
+                            <span>设置</span>
+                        </div>
+                    </div>
+                    <div class="wrap">
+                        <div class="col_100">
+                            <span>雾定时开：</span>
+                            <input value="10">
+                            <span>时</span>
+                            <input value="10">
+                            <span>分</span>
+                            <span>设置</span>
+                        </div>
+                        <div class="col_100">
+                            <span>雾定时关：</span>
+                            <input value="10">
+                            <span>时</span>
+                            <input value="10">
+                            <span>分</span>
+                            <span>设置</span>
+                        </div>
+                    </div>
+                    <div class="wrap">
+                        <div class="col_100">
+                            <span>灯定时开：</span>
+                            <input value="10">
+                            <span>时</span>
+                            <input value="10">
+                            <span>分</span>
+                            <span>设置</span>
+                        </div>
+                        <div class="col_100">
+                            <span>灯定时关：</span>
+                            <input value="10">
+                            <span>时</span>
+                            <input value="10">
+                            <span>分</span>
+                            <span>设置</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block funcdrop showdroppadding clearfix">
+                <div class="funcsel showdrop clearfix">
+                    <div class="col_50">
+                        <img src="../image/funcsel.svg">
+                        <span>功能选择设定</span>
+                    </div>
+                    <div class="col_50">
+                        <img src="../image/foldbtn.svg">
+                    </div>
+                </div>
+                <div class="funcselset clearfix">
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>灯控输出</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>喷雾输出</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>送风1输出</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>送风2输出</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>备用输出</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>缺水保护</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>欠压保护</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                    <div class="wrap clearfix">
+                        <div class="col_50">
+                            <span>调压使能</span>
+                        </div>
+                        <div class="col_50">
+                            <img src="../image/closebtn.svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block pressdrop showdroppadding clearfix">
+                <div class="pressrange showdrop clearfix">
+                    <div class="col_50">
+                        <img src="../image/pressrange.svg">
+                        <span>调压范围设定</span>
+                    </div>
+                    <div class="col_50">
+                        <img src="../image/foldbtn.svg">
+                    </div>
+                </div>
+                <div class="pressrangeset clearfix">
+                    <div class="wrap">
+                        <span>压力上限：</span>
+                        <input value="10">
+                        <span>KG</span>
+                        <span>设置</span>
+                    </div>
+                    <div class="wrap">
+                        <span>压力下限：</span>
+                        <input value="10">
+                        <span>KG</span>
+                        <span>设置</span>
+                    </div>
+                    <div class="wrap">
+                        <span>压力设定：</span>
+                        <input value="10">
+                        <span>KG</span>
+                        <span>设置</span>
+                    </div>
+                    <div class="wrap">
+                        <span>压力量程：</span>
+                        <input value="10">
+                        <span>KG</span>
+                        <span>设置</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div id="device_id"></div>
+        <div id="debug"></div>
+        <div class="mask systimeset">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <div class="return_btn btn"></div>
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <div class="wrap">
+                        <span class="shisub">11</span>
+                        <span class="fensub">07</span>
+                        <span class="miaosub">17</span>
+                    </div>
+                    <div class="wrap">
+                        <span class="selectedval systimeshi">12</span>
+                        <span class="selectedval systimefen">08</span>
+                        <span class="selectedval systimemiao">18</span>
+                    </div>
+                    <div class="wrap">
+                        <span class="shiadd">13</span>
+                        <span class="fenadd">09</span>
+                        <span class="miaoadd">19</span>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="mask lighttimeset">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <div class="return_btn btn"></div>
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <li class="active">常亮<div class="check active"><span></span></div></li>
+                    <li>15s<div class="check"><span></span></div></li>
+                    <li>30s<div class="check"><span></span></div></li>
+                    <li>60s<div class="check"><span></span></div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mask lightlevelset">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <div class="return_btn btn"></div>
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <div class="wrap">
+                        <span>  </span>
+                        <span class="lightlevelsub">40</span>
+                        <span>  </span>
+                    </div>
+                    <div class="wrap selectedval">
+                        <span>  </span>
+                        <span class="lightlevelval">50</span>
+                        <span>%</span>
+                    </div>
+                    <div class="wrap">
+                        <span>  </span>
+                        <span class="lightleveladd">60</span>
+                        <span>  </span>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="mask ctlmodeset">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <div class="return_btn btn"></div>
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <li class="active">面板手动控制<div class="check active"><span></span></div></li>
+                    <li>遥控远程控制<div class="check"><span></span></div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mask inputiooption">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <!-- <div class="return_btn btn"></div> -->
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <li>INPUT0<span>备用</span></li>
+                    <li>INPUT1<span>备用</span></li>
+                    <li>INPUT2<span>备用</span></li>
+                    <li>INPUT3<span>备用</span></li>
+                    <li>AIN0<span>备用</span></li>
+                    <li>AIN1<span>备用</span></li>
+                    <li>AIN3<span>备用</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mask outputiooption">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <!-- <div class="return_btn btn"></div> -->
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <li>POUT0<span>备用</span></li>
+                    <li>POUT1<span>备用</span></li>
+                    <li>OUT0<span>备用</span></li>
+                    <li>OUT1<span>备用</span></li>
+                    <li>OUT2<span>备用</span></li>
+                    <li>OUT3<span>备用</span></li>
+                    <li>OUT4<span>备用</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mask inputioset">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <div class="return_btn btn"></div>
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <li class="active">备用<div class="check active"><span></span></div></li>
+                    <li>手动启停<div class="check"><span></span></div></li>
+                    <li>遥控使能<div class="check"><span></span></div></li>
+                    <li>缺水信号<div class="check"><span></span></div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mask inputioset2">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <div class="return_btn btn"></div>
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <li class="active">备用<div class="check active"><span></span></div></li>
+                    <li>电压检测<div class="check"><span></span></div></li>
+                    <li>压力传感器<div class="check"><span></span></div></li>
+                    <li>温度传感器<div class="check"><span></span></div></li>
+                    <li>湿度传感器<div class="check"><span></span></div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mask outputioset">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <div class="return_btn btn"></div>
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <li class="active">备用<div class="check active"><span></span></div></li>
+                    <li>水泵<div class="check"><span></span></div></li>
+                    <li>可调LED<div class="check"><span></span></div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mask outputioset2">
+            <div class="select_bar">
+                <div class="yep_return">
+                    <div class="return_btn btn"></div>
+                    <div class="yep_btn btn"></div>
+                </div>
+                <ul>
+                    <li class="active">备用<div class="check active"><span></span></div></li>
+                    <li>运行灯输出<div class="check"><span></span></div></li>
+                    <li>故障灯输出<div class="check"><span></span></div></li>
+                    <li>风机1输出<div class="check"><span></span></div></li>
+                    <li>风机2输出<div class="check"><span></span></div></li>
+                    <li>备用输出<div class="check"><span></span></div></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+    <script>
+//读写属性用out
+
+        var device_id;
+        var device_name;
+///////////////////////////////////////////////////////////////////////////////////////////////////////]
+        var systimerecv;     //系统时间
+
+        var lighttimerecv;     //背光时间
+
+        var lightlevelrecv;     //灯光亮度
+
+        var ctlmoderecv;     //控制方式
+
+        var inputrecv = new Array();
+        // var inputrecv0;
+        // var inputrecv1;
+        // var inputrecv2;
+        // var inputrecv3;
+        // var inputrecv4;
+        // var inputrecv5;
+        // var inputrecv6;
+
+        var outputrecv = new Array();
+        // var outputrecv0;
+        // var outputrecv1;
+        // var outputrecv2;
+        // var outputrecv3;
+        // var outputrecv4;
+        // var outputrecv5;
+        // var outputrecv6;
+
+        var fengintmoderecv;     //风间隙模式
+        var wuintmoderecv;     //雾间隙模式
+
+        var openinttimerecv;     //间隙开时间
+        var closeinttimerecv;     //间隙关时间
+
+        var fengtimswitchrecv;     //风定时
+        var wutimswitchrecv;     //雾定时
+        var dengtimswitchrecv;     //灯定时
+
+        var timtime_fengkairecv;     //风定时开
+        var timtime_fengguanrecv;     //风定时关
+        var timtime_wukairecv;     //雾定时开
+        var timtime_wuguanrecv;     //雾定时关
+        var timtime_dengkairecv;     //灯定时开
+        var timtime_dengguanrecv;     //灯定时关
+
+        var funcselswitchrecv;     //功能开关
+
+        var shangxianpressrecv;     //压力上限
+        var xiaxianpressrecv;     //压力下限
+        var shedingpressrecv;     //压力设定
+        var liangchengpressrecv;     //压力量程
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        function GetRequest() {
+          var url = location.search; //获取url中"?"符后的字串
+           var theRequest = new Object();
+           if (url.indexOf("?") != -1) {
+              var str = url.substr(1);
+              strs = str.split("&");
+              for(var i = 0; i < strs.length; i ++) {
+                 theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1]);
+              }
+           }
+           return theRequest;
+        }
+
+        function GetId(){
+            var Request = new Object();
+            Request = GetRequest();
+            device_id = Request["id"];  //获取id
+        }
+
+        function updateUI(){
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //document.getElementById('device_name').innerHTML = "";
+            document.getElementById('device_id').innerHTML = device_id;
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+            // 显示系统时间
+            $(".systime>.val").text(Math.floor(systimerecv/10000)+":"+Math.floor(systimerecv%10000/100)+":"+Math.floor(systimerecv%100));
+            // 显示背光时间
+            switch(lighttimerecv){
+                case 255:$(".lighttime>.val").text("常亮");break;
+                case 15:$(".lighttime>.val").text("15s");break;
+                case 30:$(".lighttime>.val").text("30s");break;
+                case 60:$(".lighttime>.val").text("60s");break;
+                default:break;
+            }
+            //显示灯光亮度
+            $(".lightlevel>.val").text(lightlevelrecv+"%");
+            //显示控制方式
+            //
+            //$(".ctlmode>.val").text(ctlmoderecv);   //test
+            switch(ctlmoderecv){
+                case 1:$(".ctlmode>.val").text("面板手动控制");break;
+                case 0:$(".ctlmode>.val").text("遥控远程控制");break;
+                default:break;
+            }            
+            //输入端口设置
+            
+            //输出端口设置
+            //风间隙模式设置
+            if(fengintmoderecv){
+                $(".intmodeset>.col_50:first-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".intmodeset>.col_50:first-child>img").attr("src","../image/closebtn.svg");
+            }
+            //雾间隙模式
+            if(wuintmoderecv){
+                $(".intmodeset>.col_50:last-child>img").attr("src","../image/openbtn.svg"); 
+            }else{
+                $(".intmodeset>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //间隙开时间
+            $(".inttimeset>.col_50:first-child>input").val(openinttimerecv);
+            //间隙关时间
+            $(".inttimeset>.col_50:last-child>input").val(closeinttimerecv);
+            //风定时
+            //$(".timswitchset>.wrap:first-child>.col_50:first-child>span").text(fengtimswitchrecv);
+            if(fengtimswitchrecv){
+                $(".timswitchset>.wrap:eq(0)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".timswitchset>.wrap:eq(0)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //雾定时
+            if(wutimswitchrecv){
+                $(".timswitchset>.wrap:eq(1)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".timswitchset>.wrap:eq(1)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //灯定时
+             if(dengtimswitchrecv){
+                $(".timswitchset>.wrap:last-child>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".timswitchset>.wrap:last-child>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //风定时开
+            //$(".timtimeset>.wrap:eq(0)>.col_100:eq(0)>span:eq(0)").text(timtime_fengkairecv);
+
+            $(".timtimeset>.wrap:eq(0)>.col_100:eq(0)>input:eq(0)").val((timtime_fengkairecv+"").substring(0,2)*1);
+            $(".timtimeset>.wrap:eq(0)>.col_100:eq(0)>input:eq(1)").val((timtime_fengkairecv+"").substring(2,4)*1);
+            //风定时关
+            $(".timtimeset>.wrap:eq(0)>.col_100:eq(1)>input:eq(0)").val((timtime_fengguanrecv+"").substring(0,2)*1);
+            $(".timtimeset>.wrap:eq(0)>.col_100:eq(1)>input:eq(1)").val((timtime_fengguanrecv+"").substring(2,4)*1);
+            //雾定时开
+            $(".timtimeset>.wrap:eq(1)>.col_100:eq(0)>input:eq(0)").val((timtime_wukairecv+"").substring(0,2)*1);
+            $(".timtimeset>.wrap:eq(1)>.col_100:eq(0)>input:eq(1)").val((timtime_wukairecv+"").substring(2,4)*1);
+            //雾定时关
+            $(".timtimeset>.wrap:eq(1)>.col_100:eq(1)>input:eq(0)").val((timtime_wuguanrecv+"").substring(0,2)*1);
+            $(".timtimeset>.wrap:eq(1)>.col_100:eq(1)>input:eq(1)").val((timtime_wuguanrecv+"").substring(2,4)*1);
+            //灯定时开
+            $(".timtimeset>.wrap:eq(2)>.col_100:eq(0)>input:eq(0)").val((timtime_dengkairecv+"").substring(0,2)*1);
+            $(".timtimeset>.wrap:eq(2)>.col_100:eq(0)>input:eq(1)").val((timtime_dengkairecv+"").substring(2,4)*1);
+            //灯定时关
+            $(".timtimeset>.wrap:eq(2)>.col_100:eq(1)>input:eq(0)").val((timtime_dengguanrecv+"").substring(0,2)*1);
+            $(".timtimeset>.wrap:eq(2)>.col_100:eq(1)>input:eq(1)").val((timtime_dengguanrecv+"").substring(2,4)*1);
+            
+            //整合八个功能开关
+            //灯控输出
+            //$(".funcselset>.wrap:eq(0)>.col_50:first-child>span").text(funcselswitchrecv);
+            if(funcselswitchrecv & 0x01){
+                $(".funcselset>.wrap:eq(0)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".funcselset>.wrap:eq(0)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //喷雾输出
+            if(funcselswitchrecv & 0x02){
+                $(".funcselset>.wrap:eq(1)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".funcselset>.wrap:eq(1)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //送风1输出
+            if(funcselswitchrecv & 0x04){
+                $(".funcselset>.wrap:eq(2)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".funcselset>.wrap:eq(2)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //送风2输出
+            if(funcselswitchrecv & 0x08){
+                $(".funcselset>.wrap:eq(3)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".funcselset>.wrap:eq(3)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //备用输出
+            if(funcselswitchrecv & 0x10){
+                $(".funcselset>.wrap:eq(4)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".funcselset>.wrap:eq(4)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //缺水保护
+            if(funcselswitchrecv & 0x20){
+                $(".funcselset>.wrap:eq(5)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".funcselset>.wrap:eq(5)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //欠压保护
+            if(funcselswitchrecv & 0x40){
+                $(".funcselset>.wrap:eq(6)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".funcselset>.wrap:eq(6)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //调压使能
+            if(funcselswitchrecv & 0x80){
+                $(".funcselset>.wrap:eq(7)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+            }else{
+                $(".funcselset>.wrap:eq(7)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+            }
+            //压力上限
+            //$(".pressrangeset>.wrap:eq(0)>span:eq(0)").text(shangxianpressrecv);
+            $(".pressrangeset>.wrap:eq(0)>input").val(shangxianpressrecv/10);
+            //压力下限
+            //$(".pressrangeset>.wrap:eq(1)>span:eq(0)").text(xiaxianpressrecv);
+            $(".pressrangeset>.wrap:eq(1)>input").val(xiaxianpressrecv/10);
+            //压力设定
+            //$(".pressrangeset>.wrap:eq(2)>span:eq(0)").text(shedingpressrecv);
+            $(".pressrangeset>.wrap:eq(2)>input").val(shedingpressrecv/10);
+            //压力量程
+            //$(".pressrangeset>.wrap:eq(3)>span:eq(0)").text(liangchengpressrecv);
+            $(".pressrangeset>.wrap:eq(3)>input").val(liangchengpressrecv/10);
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+
+        apiready = function() {
+            GetId();
+            // 如果设备ID不为空，则执行连接MQTT的操作
+            if (device_id !== null) {
+                ez_connect(device_id,0);
+            }
+            //alert(device_id);
+//             device_name = api.pageParam.devicename;
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//             systimerecv = api.pageParam.systimerecv;         //系统时间
+
+//             lighttimerecv = api.pageParam.lighttimerecv;         //背光时间
+
+//             lightlevelrecv = api.pageParam.lightlevelrecv;         //灯光亮度
+
+//             ctlmoderecv = api.pageParam.ctlmoderecv;         //控制方式
+
+//             inputrecv[0] = api.pageParam.input0recv;
+//             inputrecv[1] = api.pageParam.input1recv;
+//             inputrecv[2] = api.pageParam.input2recv;
+//             inputrecv[3] = api.pageParam.input3recv;
+//             inputrecv[4] = api.pageParam.ain0recv;
+//             inputrecv[5] = api.pageParam.ain1recv;
+//             inputrecv[6] = api.pageParam.ain3recv;
+
+//             outputrecv[0] = api.pageParam.pout0recv;
+//             outputrecv[1] = api.pageParam.pout1recv;
+//             outputrecv[2] = api.pageParam.out0recv;
+//             outputrecv[3] = api.pageParam.out1recv;
+//             outputrecv[4] = api.pageParam.out2recv;
+//             outputrecv[5] = api.pageParam.out3recv;
+//             outputrecv[6] = api.pageParam.out4recv;
+
+//             fengintmoderecv = api.pageParam.fengintmoderecv;         //风间隙模式
+//             wuintmoderecv = api.pageParam.wuintmoderecv;         //雾间隙模式
+
+//             openinttimerecv = api.pageParam.openinttimerecv;         //间隙开时间
+//             closeinttimerecv = api.pageParam.closeinttimerecv;         //间隙关时间
+
+//             fengtimswitchrecv = api.pageParam.fengtimswitchrecv;         //风定时
+//             wutimswitchrecv = api.pageParam.wutimswitchrecv;         //雾定时
+//             dengtimswitchrecv = api.pageParam.dengtimswitchrecv;         //灯定时
+
+//             timtime_fengkairecv = api.pageParam.timtime_fengkairecv;         //风定时开
+//             timtime_fengguanrecv = api.pageParam.timtime_fengguanrecv;         //风定时关
+//             timtime_wukairecv = api.pageParam.timtime_wukairecv;         //雾定时开
+//             timtime_wuguanrecv = api.pageParam.timtime_wuguanrecv;         //雾定时关
+//             timtime_dengkairecv = api.pageParam.timtime_dengkairecv;         //灯定时开
+//             timtime_dengguanrecv = api.pageParam.timtime_dengguanrecv;         //灯定时关
+
+//             funcselswitchrecv = api.pageParam.funcselswitchrecv;         //功能开关
+//             funcselswitch = funcselswitchrecv;  //需要保存数据的
+
+//             shangxianpressrecv = api.pageParam.shangxianpressrecv;         //压力上限
+//             xiaxianpressrecv = api.pageParam.xiaxianpressrecv;         //压力下限
+//             shedingpressrecv = api.pageParam.shedingpressrecv;         //压力设定
+//             liangchengpressrecv = api.pageParam.liangchengpressrecv;         //压力量程
+
+        }();
+
+        var onetimectl = true;
+        var client;     
+        // 连接MQTT服务
+        function ez_connect(device_id,n) {
+            var host = "api.easylink.io";
+            var port = 1983;
+            //clientID，需要按照此标准来定义：v1-app-[MAC]  版本号-app-手机MAC(12位)
+            var clientID = "v1-app-" + parseInt(Math.random() * (1000000000000), 12);
+            client = new Paho.MQTT.Client(host, Number(port), clientID);
+            client.onConnectionLost = onConnectionLost;
+            client.onMessageArrived = onMessageArrived;
+            client.connect({onSuccess:onConnect});
+            function onConnect() {
+                var subtopic = device_id+'/out';
+                // Once a connection has been made, make a subscription and send a message.
+                // 向某个通道发送指令
+                // topic：通道
+                // commond：指令
+                client.publish = function(topic, commond) {
+                    // console.log("现在执行-->:"+commond);
+                    message = new Paho.MQTT.Message(commond);
+                    message.destinationName = topic;
+                    client.send(message);
+                }
+                // console.log("device_id:"+device_id);
+                console.log("onConnect");
+                client.subscribe(subtopic, {qos: 0});
+            };
+            function onConnectionLost(responseObject) {
+                if (responseObject.errorCode !== 0)
+                    console.log("onConnectionLost:"+responseObject.errorMessage);   //连接断开
+            };
+            function onMessageArrived(message) {
+                // console.log("onMessageArrived:"+message.payloadString);   //显示发来的消息
+                if(onetimectl){
+                    recvmsg(message);
+                    onetimectl = false;
+                }
+                //client.disconnect(); 
+            };
+            //接收消息并处理
+            function recvmsg(message) {
+                console.log("onMessageArrived:"+message.payloadString);   //显示发来的消息
+                var ret = message.payloadString;
+                var msgjson = JSON.parse(ret);
+
+//                     var devtime = msgjson.dev_time;             //设备时间
+//                     var devtimeshi = Math.floor(devtime/10000);//msgjson.dev_time_shi;      
+//                     var devtimefen = Math.floor(devtime%10000/100);//msgjson.dev_time_fen;
+//                     var devtimemiao = Math.floor(devtime%100);//msgjson.dev_time_miao;
+
+//                     var devmode = msgjson.dev_mode;             //设备模式
+// //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                systimerecv = msgjson.systime;//系统时间
+
+                lighttimerecv = msgjson.lighttime;//背光时间
+
+                lightlevelrecv = msgjson.lightlevel;//灯光亮度
+
+                ctlmoderecv = msgjson.ctlmode;//控制方式
+
+
+                inputrecv[0] = msgjson.input0;
+                inputrecv[1] = msgjson.input1;
+                inputrecv[2] = msgjson.input2;
+                inputrecv[3] = msgjson.input3;
+                inputrecv[4] = msgjson.ain0;
+                inputrecv[5] = msgjson.ain1;
+                inputrecv[6] = msgjson.ain3;
+
+
+                outputrecv[0] = msgjson.pout0;
+                outputrecv[1] = msgjson.pout1;
+                outputrecv[2] = msgjson.out0;
+                outputrecv[3] = msgjson.out1;
+                outputrecv[4] = msgjson.out2;
+                outputrecv[5] = msgjson.out3;
+                outputrecv[6] = msgjson.out4;
+
+                fengintmoderecv = msgjson.fengintmode;//风间隙模式
+                wuintmoderecv = msgjson.wuintmode;//雾间隙模式
+
+                openinttimerecv = msgjson.openinttime;//间隙开时间
+                closeinttimerecv = msgjson.closeinttime;//间隙关时间
+
+                fengtimswitchrecv = msgjson.fengtimswitch;//风定时
+                wutimswitchrecv = msgjson.wutimswitch;//雾定时
+                dengtimswitchrecv = msgjson.dengtimswitch;//灯定时
+
+                timtime_fengkairecv = msgjson.timtime_fengkai;//风定时开
+                timtime_fengguanrecv = msgjson.timtime_fengguan;//风定时关
+                timtime_wukairecv = msgjson.timtime_wukai;//雾定时开
+                timtime_wuguanrecv = msgjson.timtime_wuguan;//雾定时关
+                timtime_dengkairecv = msgjson.timtime_dengkai;//灯定时开
+                timtime_dengguanrecv = msgjson.timtime_dengguan;//灯定时关
+
+                funcselswitchrecv = msgjson.funcselswitch;//功能开关
+
+                shangxianpressrecv = msgjson.shangxianpress;//压力上限
+                xiaxianpressrecv = msgjson.xiaxianpress;//压力下限
+                shedingpressrecv = msgjson.shedingpress;//压力设定
+                liangchengpressrecv = msgjson.liangchengpress;//压力量程
+
+                updateUI();
+                //client.disconnect(); 
+            };
+        }
+
+        //发送指令
+        function publishcmd(topic, command) {   //publishcmd("60b3105c/c893465483d5" + "/in",'{"dev_status":false}')
+            //var topic = "60b3105c/c893465483d5" + '/in';   //60b3105c/c893465483d5/out
+            // var options = {
+            //      //connection attempt timeout in seconds
+            //      timeout: 3,
+            //      //Gets Called if the connection has successfully been established
+            //      onSuccess: function () {
+            //          alert("Connected");
+            //      },
+            //      //Gets Called if the connection could not be established
+            //      onFailure: function (message) {
+            //          alert("Connection failed: " + message.errorMessage);
+            //      }
+            
+            //  };
+            // client.connect(options);
+            // message = new Paho.MQTT.Message(command);
+            // message.destinationName = topic;
+            // client.send(message);     //发送消息
+            //client.disconnect();
+            client.publish(topic, command);
+        };
+
+        // //.showdrop展开和收起
+        $(".showdrop").click(function(){
+            if($(this).children().eq(1).children().attr("src")=="../image/foldbtn.svg"){
+                $(this).children().eq(1).children().attr("src","../image/unfoldbtn.svg");
+                $(this).next().show();
+            }else{
+                $(this).children().eq(1).children().attr("src","../image/foldbtn.svg"); 
+                $(this).next().hide();
+            }
+        });
+
+        $(".showdrop").next().hide();   //隐藏所有子项目
+
+        //系统时间设定
+        $(".systime").click(function(){
+            $(".systimeset").show();
+        });
+        $(".systimeset>.select_bar>.yep_return>.return_btn").click(function(){
+            $(".systimeset").hide();
+        });
+        $(".systimeset>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".systimeset").hide();
+            $(".systime>.val").text($(".systimeset>.select_bar>ul>.wrap>.systimeshi").text()+":"+
+                $(".systimeset>.select_bar>ul>.wrap>.systimefen").text()+":"+
+                $(".systimeset>.select_bar>ul>.wrap>.systimemiao").text());
+            var topic = device_id + '/in';
+            var command;
+            // command = '{"systime_shi":'+$(".systimeset>.select_bar>ul>.wrap>.systimeshi").text()*1+',"systime_fen":'+$(".systimeset>.select_bar>ul>.wrap>.systimefen").text()*1+', "systime_miao":'+$(".systimeset>.select_bar>ul>.wrap>.systimemiao").text()*1+'}';  
+            command = '{"systime":'+$(".systimeset>.select_bar>ul>.wrap>.systimeshi").text()*10000+$(".systimeset>.select_bar>ul>.wrap>.systimefen").text()*100+$(".systimeset>.select_bar>ul>.wrap>.systimemiao").text()*1+'}';    
+            publishcmd(topic, command);
+        });
+        //系统时间改变
+        $(".shisub").click(function(){
+            var shisubval = $(".shisub").text();
+            var systimeshival = $(".systimeshi").text();
+            var shiaddval = $(".shiadd").text();
+            shisubval = ("0" + (shisubval*1-1)).substring(("0" + (shisubval*1-1)).length-2,("0" + (shisubval*1-1)).length);
+            systimeshival = ("0" + (systimeshival*1-1)).substring(("0" + (systimeshival*1-1)).length-2,("0" + (systimeshival*1-1)).length);
+            shiaddval = ("0" + (shiaddval*1-1)).substring(("0" + (shiaddval*1-1)).length-2,("0" + (shiaddval*1-1)).length);
+            $(".shisub").text(shisubval);
+            $(".systimeshi").text(systimeshival);
+            $(".shiadd").text(shiaddval);
+            if($(".shisub").text()*1 == -1){
+                $(".shisub").text(23);
+            }else if($(".systimeshi").text()*1 == -1){ 
+                $(".systimeshi").text(23);
+            }else if($(".shiadd").text()*1 == -1){
+                $(".shiadd").text(23);
+            }
+            else{
+            }
+        });
+        $(".shiadd").click(function(){
+            var shisubval = $(".shisub").text();
+            var systimeshival = $(".systimeshi").text();
+            var shiaddval = $(".shiadd").text();
+            shisubval = ("0" + (shisubval*1+1)).substring(("0" + (shisubval*1+1)).length-2,("0" + (shisubval*1+1)).length);
+            systimeshival = ("0" + (systimeshival*1+1)).substring(("0" + (systimeshival*1+1)).length-2,("0" + (systimeshival*1+1)).length);
+            shiaddval = ("0" + (shiaddval*1+1)).substring(("0" + (shiaddval*1+1)).length-2,("0" + (shiaddval*1+1)).length);
+            $(".shisub").text(shisubval);
+            $(".systimeshi").text(systimeshival);
+            $(".shiadd").text(shiaddval);
+            if($(".shisub").text()*1 == 24){
+                $(".shisub").text("00");
+            }else if($(".systimeshi").text()*1 == 24){ 
+                $(".systimeshi").text("00");
+            }else if($(".shiadd").text()*1 == 24){
+                $(".shiadd").text("00");
+            }
+            else{
+            }
+        });
+        $(".fensub").click(function(){
+            var fensubval = $(".fensub").text();
+            var systimefenval = $(".systimefen").text();
+            var fenaddval = $(".fenadd").text();
+            fensubval = ("0" + (fensubval*1-1)).substring(("0" + (fensubval*1-1)).length-2,("0" + (fensubval*1-1)).length);
+            systimefenval = ("0" + (systimefenval*1-1)).substring(("0" + (systimefenval*1-1)).length-2,("0" + (systimefenval*1-1)).length);
+            fenaddval = ("0" + (fenaddval*1-1)).substring(("0" + (fenaddval*1-1)).length-2,("0" + (fenaddval*1-1)).length);
+            $(".fensub").text(fensubval);
+            $(".systimefen").text(systimefenval);
+            $(".fenadd").text(fenaddval);
+            if($(".fensub").text()*1 == -1){
+                $(".fensub").text(59);
+            }else if($(".systimefen").text()*1 == -1){ 
+                $(".systimefen").text(59);
+            }else if($(".fenadd").text()*1 == -1){
+                $(".fenadd").text(59);
+            }
+            else{
+            }
+        });
+        $(".fenadd").click(function(){
+            var fensubval = $(".fensub").text();
+            var systimefenval = $(".systimefen").text();
+            var fenaddval = $(".fenadd").text();
+            fensubval = ("0" + (fensubval*1+1)).substring(("0" + (fensubval*1+1)).length-2,("0" + (fensubval*1+1)).length);
+            systimefenval = ("0" + (systimefenval*1+1)).substring(("0" + (systimefenval*1+1)).length-2,("0" + (systimefenval*1+1)).length);
+            fenaddval = ("0" + (fenaddval*1+1)).substring(("0" + (fenaddval*1+1)).length-2,("0" + (fenaddval*1+1)).length);
+            $(".fensub").text(fensubval);
+            $(".systimefen").text(systimefenval);
+            $(".fenadd").text(fenaddval);
+            if($(".fensub").text()*1 == 60){
+                $(".fensub").text("00");
+            }else if($(".systimefen").text()*1 == 60){ 
+                $(".systimefen").text("00");
+            }else if($(".fenadd").text()*1 == 60){
+                $(".fenadd").text("00");
+            }
+            else{
+            }
+        });
+        $(".miaosub").click(function(){
+            var miaosubval = $(".miaosub").text();
+            var systimemiaoval = $(".systimemiao").text();
+            var miaoaddval = $(".miaoadd").text();
+            miaosubval = ("0" + (miaosubval*1-1)).substring(("0" + (miaosubval*1-1)).length-2,("0" + (miaosubval*1-1)).length);
+            systimemiaoval = ("0" + (systimemiaoval*1-1)).substring(("0" + (systimemiaoval*1-1)).length-2,("0" + (systimemiaoval*1-1)).length);
+            miaoaddval = ("0" + (miaoaddval*1-1)).substring(("0" + (miaoaddval*1-1)).length-2,("0" + (miaoaddval*1-1)).length);
+            $(".miaosub").text(miaosubval);
+            $(".systimemiao").text(systimemiaoval);
+            $(".miaoadd").text(miaoaddval);
+            if($(".miaosub").text()*1 == -1){
+                $(".miaosub").text(59);
+            }else if($(".systimemiao").text()*1 == -1){ 
+                $(".systimemiao").text(59);
+            }else if($(".miaoadd").text()*1 == -1){
+                $(".miaoadd").text(59);
+            }
+            else{
+            }
+        });
+        $(".miaoadd").click(function(){
+            var miaosubval = $(".miaosub").text();
+            var systimemiaoval = $(".systimemiao").text();
+            var miaoaddval = $(".miaoadd").text();
+            miaosubval = ("0" + (miaosubval*1+1)).substring(("0" + (miaosubval*1+1)).length-2,("0" + (miaosubval*1+1)).length);
+            systimemiaoval = ("0" + (systimemiaoval*1+1)).substring(("0" + (systimemiaoval*1+1)).length-2,("0" + (systimemiaoval*1+1)).length);
+            miaoaddval = ("0" + (miaoaddval*1+1)).substring(("0" + (miaoaddval*1+1)).length-2,("0" + (miaoaddval*1+1)).length);
+            $(".miaosub").text(miaosubval);
+            $(".systimemiao").text(systimemiaoval);
+            $(".miaoadd").text(miaoaddval);
+            if($(".miaosub").text()*1 == 60){
+                $(".miaosub").text("00");
+            }else if($(".systimemiao").text()*1 == 60){ 
+                $(".systimemiao").text("00");
+            }else if($(".miaoadd").text()*1 == 60){
+                $(".miaoadd").text("00");
+            }
+            else{
+            }
+        });
+
+        //背光时间设定
+        $(".lighttime").click(function(){
+            $(".lighttimeset").show();
+        });
+        $(".lighttimeset>.select_bar>.yep_return>.return_btn").click(function(){
+            $(".lighttimeset").hide();
+        });
+        $(".lighttimeset>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".lighttimeset").hide();
+            $(".lighttime>.val").text($(".lighttimeset>.select_bar>ul>li.active").text());
+            var topic = device_id + '/in';
+            var command;
+            switch($(".lighttimeset>.select_bar>ul>li.active").index()){
+                case 0: command = '{"lighttime":'+255+'}'; break;
+                case 1: command = '{"lighttime":'+15+'}'; break;
+                case 2: command = '{"lighttime":'+30+'}'; break;
+                case 3: command = '{"lighttime":'+60+'}'; break;
+            }
+            //command = '{"lighttime":"'+$(".lighttimeset>.select_bar>ul>li.active").index()+'"}';     
+            publishcmd(topic, command);
+        });
+        $(".lighttimeset>.select_bar>ul").on("click","li",function(){
+			$(".lighttimeset>.select_bar>ul>li").removeClass("active");
+            $(this).toggleClass("active");
+        });
+
+        //灯光亮度设定
+        $(".lightlevel").click(function(){
+        	$(".lightlevelset").show();
+        });
+        $(".lightlevelset>.select_bar>.yep_return>.return_btn").click(function(){
+        	$(".lightlevelset").hide();
+        });
+        $(".lightlevelset>.select_bar>.yep_return>.yep_btn").click(function(){
+        	$(".lightlevelset").hide();
+        	$(".lightlevel>.val").text($(".lightlevelset>.select_bar>ul>.selectedval>.lightlevelval").text()+"%");
+        	var topic = device_id + '/in';
+            var command;
+            command = '{"lightlevel":'+$(".lightlevelset>.select_bar>ul>.selectedval>.lightlevelval").text()*1+'}';     
+            publishcmd(topic, command);
+        });
+        //灯光亮度加减按钮
+        $(".lightlevelsub").click(function(){
+            var lightlevelsub = $(".lightlevelsub").text();
+            var lightlevelval = $(".lightlevelval").text();
+            var lightleveladd;// = $(".lightleveladd").text();
+            if($(".lightleveladd").text()==""){
+            	lightleveladd = 110;
+            }else{
+            	lightleveladd = $(".lightleveladd").text();
+            }
+            lightlevelsub = lightlevelsub*1 - 10;
+            lightlevelval = lightlevelval*1 - 10;
+            lightleveladd = lightleveladd*1 - 10;
+            if($(".lightlevelsub").text() == ""){
+                
+            }else{
+            	if(lightlevelsub == -10){
+            		$(".lightlevelsub").text("");
+            	}else{
+            		$(".lightlevelsub").text(lightlevelsub);
+            	}
+            	$(".lightlevelval").text(lightlevelval);
+            	$(".lightleveladd").text(lightleveladd);
+            }
+        });
+        $(".lightleveladd").click(function(){
+            var lightlevelsub;// = $(".lightlevelsub").text();
+            if($(".lightlevelsub").text()==""){
+            	lightlevelsub = -10;
+            }else{
+            	lightlevelsub = $(".lightlevelsub").text();
+            }
+            var lightlevelval = $(".lightlevelval").text();
+            var lightleveladd = $(".lightleveladd").text();
+            
+            lightlevelsub = lightlevelsub*1 + 10;
+            lightlevelval = lightlevelval*1 + 10;
+            lightleveladd = lightleveladd*1 + 10;
+            if($(".lightleveladd").text() == ""){
+                
+            }else{
+            	if(lightleveladd == 110){
+            		$(".lightleveladd").text("");
+            	}else{
+            		$(".lightleveladd").text(lightleveladd);
+            	}
+            	$(".lightlevelsub").text(lightlevelsub);
+            	$(".lightlevelval").text(lightlevelval);
+            	
+            }
+        });
+        
+        //控制方式设定
+        $(".ctlmode").click(function(){
+            $(".ctlmodeset").show();
+        });
+        $(".ctlmodeset>.select_bar>.yep_return>.return_btn").click(function(){
+            $(".ctlmodeset").hide();
+        });
+        $(".ctlmodeset>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".ctlmodeset").hide();
+            $(".ctlmode>.val").text($(".ctlmodeset>.select_bar>ul>li.active").text());
+            var topic = device_id + '/in';
+            var command;
+            // switch($(".ctlmode>.val").text($(".ctlmodeset>.select_bar>ul>li.active").index()){
+            //     case 0: command = '{"lighttime":"'+255+'"}'; break;
+            //     case 1: command = '{"lighttime":"'+15+'"}'; break;
+            // }
+            command = '{"ctlmode":"'+$(".ctlmodeset>.select_bar>ul>li.active").index()+'"}';     
+            publishcmd(topic, command);
+        });
+        $(".ctlmodeset>.select_bar>ul").on("click","li",function(){
+            $(".ctlmodeset>.select_bar>ul>li").removeClass("active");
+            $(this).toggleClass("active");
+        });
+
+        var inputselectedflag;
+        //输入端口配置
+        $(".inputio").click(function(){
+            for(var i=0;i<4;i++){
+                switch(inputrecv[i]){
+                    case 0: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("备用");break;
+                    case 1: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("手动启停");break;
+                    case 2: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("遥控使能");break;
+                    case 3: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("缺水信号");break;
+                    default: break;
+                }
+            }
+            for(var i=4;i<7;i++){
+                switch(inputrecv[i]){
+                    case 0: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("备用");break;
+                    case 1: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("电压检测");break;
+                    case 2: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("压力传感器");break;
+                    case 3: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("温度传感器");break;
+                    case 4: $(".inputiooption>.select_bar>ul>li").eq(i).children().text("湿度传感器");break;
+                    default: break;
+                }
+            }
+            $(".inputiooption").show();
+        });
+        $(".inputiooption>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".inputiooption").hide();
+        });
+        $(".inputiooption>.select_bar>ul>li").click(function(){
+            inputselectedflag = $(this).index();
+            if(inputselectedflag<4){
+                $(".inputioset").show();
+            }else{
+                $(".inputioset2").show();
+            }
+            
+        });
+        $(".inputioset>.select_bar>.yep_return>.return_btn").click(function(){
+            $(".inputioset").hide();
+        });
+        $(".inputioset2>.select_bar>.yep_return>.return_btn").click(function(){
+            $(".inputioset2").hide();
+        });
+        $(".inputioset>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".inputioset").hide();
+            var topic = device_id + '/in';
+            var command;
+            switch(inputselectedflag){
+                case 0: command = '{"input0":'+$(".inputioset>.select_bar>ul>li.active").index()+'}';
+                    inputrecv[0]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                    break;
+                case 1: command = '{"input1":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                    inputrecv[1]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                    break;
+                case 2: command = '{"input2":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                    inputrecv[2]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                    break;
+                case 3: command = '{"input3":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                    inputrecv[3]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                    break;
+                // case 4: command = '{"ain0":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     inputrecv[4]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                //     break;
+                // case 5: command = '{"ain1":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     inputrecv[5]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                //     break;
+                // case 6: command = '{"ain3":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     inputrecv[6]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                //     break;
+                default:break;
+            }
+            publishcmd(topic, command);
+            $(".inputiooption>.select_bar>ul>li").eq(inputselectedflag).children().eq(0).text($(".inputioset>.select_bar>ul>li.active").text());
+        });
+
+        $(".inputioset2>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".inputioset2").hide();
+            var topic = device_id + '/in';
+            var command;
+            switch(inputselectedflag){
+                // case 0: command = '{"input0":'+$(".inputioset>.select_bar>ul>li.active").index()+'}';
+                //     inputrecv[0]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                //     break;
+                // case 1: command = '{"input1":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     inputrecv[1]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                //     break;
+                // case 2: command = '{"input2":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     inputrecv[2]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                //     break;
+                // case 3: command = '{"input3":'+$(".inputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     inputrecv[3]=$(".inputioset>.select_bar>ul>li.active").index(); 
+                //     break;
+                case 4: command = '{"ain0":'+$(".inputioset2>.select_bar>ul>li.active").index()+'}'; 
+                    inputrecv[4]=$(".inputioset2>.select_bar>ul>li.active").index(); 
+                    break;
+                case 5: command = '{"ain1":'+$(".inputioset2>.select_bar>ul>li.active").index()+'}'; 
+                    inputrecv[5]=$(".inputioset2>.select_bar>ul>li.active").index(); 
+                    break;
+                case 6: command = '{"ain3":'+$(".inputioset2>.select_bar>ul>li.active").index()+'}'; 
+                    inputrecv[6]=$(".inputioset2>.select_bar>ul>li.active").index(); 
+                    break;
+                default:break;
+            }
+            publishcmd(topic, command);
+            $(".inputiooption>.select_bar>ul>li").eq(inputselectedflag).children().eq(0).text($(".inputioset2>.select_bar>ul>li.active").text());
+        });
+
+        $(".inputioset>.select_bar>ul").on("click","li",function(){
+            $(".inputioset>.select_bar>ul>li").removeClass("active");
+            $(this).toggleClass("active");
+        });
+        $(".inputioset2>.select_bar>ul").on("click","li",function(){
+            $(".inputioset2>.select_bar>ul>li").removeClass("active");
+            $(this).toggleClass("active");
+        });
+
+
+        var outputselectedflag;
+        //输出端口配置
+        $(".outputio").click(function(){
+            for(var i=0;i<2;i++){
+                switch(outputrecv[i]){
+                    case 0: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("备用");break;
+                    case 1: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("水泵");break;
+                    case 2: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("可调LED");break;
+                    default: break;
+                }
+            }
+            for(var i=2;i<7;i++){
+                switch(outputrecv[i]){
+                    case 0: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("备用");break;
+                    case 1: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("运行灯输出");break;
+                    case 2: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("故障灯输出");break;
+                    case 3: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("风机1输出");break;
+                    case 4: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("风机2输出");break;
+                    case 5: $(".outputiooption>.select_bar>ul>li").eq(i).children().text("备用输出");break;
+                    default: break;
+                }
+            }
+            $(".outputiooption").show();
+        });
+        $(".outputiooption>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".outputiooption").hide();
+        });
+        $(".outputiooption>.select_bar>ul>li").click(function(){
+            outputselectedflag = $(this).index();
+            if(outputselectedflag<2){
+                $(".outputioset").show();
+            }else{
+                $(".outputioset2").show();
+            }
+        });
+        $(".outputioset>.select_bar>.yep_return>.return_btn").click(function(){
+            $(".outputioset").hide();
+        });
+        $(".outputioset2>.select_bar>.yep_return>.return_btn").click(function(){
+            $(".outputioset2").hide();
+        });
+        $(".outputioset>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".outputioset").hide();
+            var topic = device_id + '/in';
+            var command;
+            switch(outputselectedflag){
+                case 0: command = '{"pout0":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                    outputrecv[0] = $(".outputioset>.select_bar>ul>li.active").index();
+                    break;
+                case 1: command = '{"pout1":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                    outputrecv[1] = $(".outputioset>.select_bar>ul>li.active").index();
+                    break;
+                // case 2: command = '{"out0":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     outputrecv[2] = $(".outputioset>.select_bar>ul>li.active").index();
+                //     break;
+                // case 3: command = '{"out1":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     outputrecv[3] = $(".outputioset>.select_bar>ul>li.active").index();
+                //     break;
+                // case 4: command = '{"out2":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     outputrecv[4] = $(".outputioset>.select_bar>ul>li.active").index();
+                //     break;
+                // case 5: command = '{"out3":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     outputrecv[5] = $(".outputioset>.select_bar>ul>li.active").index();
+                //     break;
+                // case 6: command = '{"out4":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     outputrecv[6] = $(".outputioset>.select_bar>ul>li.active").index();
+                //     break;
+                default:break;
+            }
+            publishcmd(topic, command);
+            $(".outputiooption>.select_bar>ul>li").eq(outputselectedflag).children().eq(0).text($(".outputioset>.select_bar>ul>li.active").text());
+        });
+        $(".outputioset2>.select_bar>.yep_return>.yep_btn").click(function(){
+            $(".outputioset2").hide();
+            var topic = device_id + '/in';
+            var command;
+            switch(outputselectedflag){
+                // case 0: command = '{"pout0":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     outputrecv[0] = $(".outputioset>.select_bar>ul>li.active").index();
+                //     break;
+                // case 1: command = '{"pout1":'+$(".outputioset>.select_bar>ul>li.active").index()+'}'; 
+                //     outputrecv[1] = $(".outputioset>.select_bar>ul>li.active").index();
+                //     break;
+                case 2: command = '{"out0":'+$(".outputioset2>.select_bar>ul>li.active").index()+'}'; 
+                    outputrecv[2] = $(".outputioset2>.select_bar>ul>li.active").index();
+                    break;
+                case 3: command = '{"out1":'+$(".outputioset2>.select_bar>ul>li.active").index()+'}'; 
+                    outputrecv[3] = $(".outputioset2>.select_bar>ul>li.active").index();
+                    break;
+                case 4: command = '{"out2":'+$(".outputioset2>.select_bar>ul>li.active").index()+'}'; 
+                    outputrecv[4] = $(".outputioset2>.select_bar>ul>li.active").index();
+                    break;
+                case 5: command = '{"out3":'+$(".outputioset2>.select_bar>ul>li.active").index()+'}'; 
+                    outputrecv[5] = $(".outputioset2>.select_bar>ul>li.active").index();
+                    break;
+                case 6: command = '{"out4":'+$(".outputioset2>.select_bar>ul>li.active").index()+'}'; 
+                    outputrecv[6] = $(".outputioset2>.select_bar>ul>li.active").index();
+                    break;
+                default:break;
+            }
+            publishcmd(topic, command);
+            $(".outputiooption>.select_bar>ul>li").eq(outputselectedflag).children().eq(0).text($(".outputioset2>.select_bar>ul>li.active").text());
+        });
+
+        $(".outputioset>.select_bar>ul").on("click","li",function(){
+            $(".outputioset>.select_bar>ul>li").removeClass("active");
+            $(this).toggleClass("active");
+        });
+        $(".outputioset2>.select_bar>ul").on("click","li",function(){
+            $(".outputioset2>.select_bar>ul>li").removeClass("active");
+            $(this).toggleClass("active");
+        });
+        
+        var fengintmodetsflag = true;
+        //风间隙模式
+        $(".intmodeset>.col_50:first-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if(fengintmodetsflag){
+                $(".intmodeset>.col_50:first-child>img").attr("src","../image/openbtn.svg");
+                command = '{"fengintmode":true}'; 
+            }else{
+                $(".intmodeset>.col_50:first-child>img").attr("src","../image/closebtn.svg"); 
+                command = '{"fengintmode":false}'; 
+            }
+            fengintmodetsflag = !fengintmodetsflag;
+            publishcmd(topic, command);
+        });
+
+        var wuintmodetsflag = true;
+        //雾间隙模式
+         $(".intmodeset>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if(wuintmodetsflag){
+                $(".intmodeset>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                command = '{"wuintmode":true}'; 
+            }else{
+                $(".intmodeset>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                command = '{"wuintmode":false}'; 
+            }
+            wuintmodetsflag = !wuintmodetsflag;
+            publishcmd(topic, command);
+        });
+
+         //间隙开时间
+         $(".inttimeset>.col_50:first-child>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            command = '{"openinttime":'+$(".inttimeset>.col_50:first-child>input").val()+'}';     
+            publishcmd(topic, command);
+            ;
+         });
+
+         //间隙关时间
+         $(".inttimeset>.col_50:last-child>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            command = '{"closeinttime":'+$(".inttimeset>.col_50:last-child>input").val()+'}';     
+            publishcmd(topic, command);
+            ;
+         });
+
+         
+        var fengtimswitchtsflag = true;
+        //风定时
+        $(".timswitchset>.wrap:first-child>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if(fengtimswitchtsflag){
+                $(".timswitchset>.wrap:first-child>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                command = '{"fengtimswitch":true}'; 
+            }else{
+                $(".timswitchset>.wrap:first-child>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                command = '{"fengtimswitch":false}'; 
+            }
+            fengtimswitchtsflag = !fengtimswitchtsflag;
+            publishcmd(topic, command);
+        });
+
+        var wutimswitchtsflag = true;
+        //雾定时
+        $(".timswitchset>.wrap:eq(1)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if(wutimswitchtsflag){
+                $(".timswitchset>.wrap:eq(1)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                command = '{"wutimswitch":true}'; 
+            }else{
+                $(".timswitchset>.wrap:eq(1)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                command = '{"wutimswitch":false}'; 
+            }
+            wutimswitchtsflag = !wutimswitchtsflag;
+            publishcmd(topic, command);
+        });
+
+        var dengtimswitchtsflag = true;
+        //灯定时
+        $(".timswitchset>.wrap:last-child>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if(dengtimswitchtsflag){
+                $(".timswitchset>.wrap:last-child>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                command = '{"dengtimswitch":true}'; 
+            }else{
+                $(".timswitchset>.wrap:last-child>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                command = '{"dengtimswitch":false}'; 
+            }
+            dengtimswitchtsflag = !dengtimswitchtsflag;
+            publishcmd(topic, command);
+        });
+
+        //风定时开
+        $(".timtimeset>.wrap:eq(0)>.col_100:eq(0)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            var commandstring1 = $(".timtimeset>.wrap:eq(0)>.col_100:eq(0)>input:eq(0)").val();
+            var commandstring2 = $(".timtimeset>.wrap:eq(0)>.col_100:eq(0)>input:eq(1)").val();
+            var commandstring = ("0" + commandstring1).substring(("0" + commandstring1).length-2,("0" + commandstring1).length)+("0" + commandstring2).substring(("0" + commandstring2).length-2,("0" + commandstring2).length);
+            command = '{"timtime_fengkai":'+commandstring+'}';   
+              
+            publishcmd(topic, command);
+        });
+
+        //风定时关
+        $(".timtimeset>.wrap:eq(0)>.col_100:eq(1)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            var commandstring1 = $(".timtimeset>.wrap:eq(0)>.col_100:eq(1)>input:eq(0)").val();
+            var commandstring2 = $(".timtimeset>.wrap:eq(0)>.col_100:eq(1)>input:eq(1)").val();
+            var commandstring = ("0" + commandstring1).substring(("0" + commandstring1).length-2,("0" + commandstring1).length)+("0" + commandstring2).substring(("0" + commandstring2).length-2,("0" + commandstring2).length);
+            command = '{"timtime_fengguan":'+commandstring+'}';     
+            publishcmd(topic, command);
+        });
+
+        //雾定时开
+        $(".timtimeset>.wrap:eq(1)>.col_100:eq(0)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            var commandstring1 = $(".timtimeset>.wrap:eq(1)>.col_100:eq(0)>input:eq(0)").val();
+            var commandstring2 = $(".timtimeset>.wrap:eq(1)>.col_100:eq(0)>input:eq(1)").val();
+            var commandstring = ("0" + commandstring1).substring(("0" + commandstring1).length-2,("0" + commandstring1).length)+("0" + commandstring2).substring(("0" + commandstring2).length-2,("0" + commandstring2).length);
+            command = '{"timtime_wukai":'+commandstring+'}';     
+            publishcmd(topic, command);
+        });
+
+        //雾定时关
+        $(".timtimeset>.wrap:eq(1)>.col_100:eq(1)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            var commandstring1 = $(".timtimeset>.wrap:eq(1)>.col_100:eq(1)>input:eq(0)").val();
+            var commandstring2 = $(".timtimeset>.wrap:eq(1)>.col_100:eq(1)>input:eq(1)").val();
+            var commandstring = ("0" + commandstring1).substring(("0" + commandstring1).length-2,("0" + commandstring1).length)+("0" + commandstring2).substring(("0" + commandstring2).length-2,("0" + commandstring2).length);
+            command = '{"timtime_wuguan":'+commandstring+'}';     
+            publishcmd(topic, command);
+        });
+
+        //灯定时开
+        $(".timtimeset>.wrap:eq(2)>.col_100:eq(0)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            var commandstring1 = $(".timtimeset>.wrap:eq(2)>.col_100:eq(0)>input:eq(0)").val();
+            var commandstring2 = $(".timtimeset>.wrap:eq(2)>.col_100:eq(0)>input:eq(1)").val();
+            var commandstring = ("0" + commandstring1).substring(("0" + commandstring1).length-2,("0" + commandstring1).length)+("0" + commandstring2).substring(("0" + commandstring2).length-2,("0" + commandstring2).length);
+            command = '{"timtime_dengkai":'+commandstring+'}';     
+            publishcmd(topic, command);
+        });
+
+        //灯定时关
+        $(".timtimeset>.wrap:eq(2)>.col_100:eq(1)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            var commandstring1 = $(".timtimeset>.wrap:eq(2)>.col_100:eq(1)>input:eq(0)").val();
+            var commandstring2 = $(".timtimeset>.wrap:eq(2)>.col_100:eq(1)>input:eq(1)").val();
+            var commandstring = ("0" + commandstring1).substring(("0" + commandstring1).length-2,("0" + commandstring1).length)+("0" + commandstring2).substring(("0" + commandstring2).length-2,("0" + commandstring2).length);
+            command = '{"timtime_dengguan":'+commandstring+'}';     
+            publishcmd(topic, command);
+        });
+
+
+
+        var funcselswitch = 0x00;//整合八个功能选择
+
+        //var dengkongfuncseltsflag = true;
+        //灯控输出
+        $(".funcselset>.wrap:eq(0)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if($(".funcselset>.wrap:eq(0)>.col_50:last-child>img").attr("src")=="../image/closebtn.svg"){
+                $(".funcselset>.wrap:eq(0)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                // command = '{"funcselswitch":true}';
+                funcselswitch =  funcselswitch | 0x01;
+            }else{
+                $(".funcselset>.wrap:eq(0)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                // command = '{"funcselswitch":false}'; 
+                funcselswitch =  funcselswitch & 0xfe;
+            }
+            //dengkongfuncseltsflag = !dengkongfuncseltsflag;
+            command = '{"funcselswitch":'+funcselswitch+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //var penwufuncseltsflag = true;
+        //喷雾输出
+        $(".funcselset>.wrap:eq(1)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if($(".funcselset>.wrap:eq(1)>.col_50:last-child>img").attr("src")=="../image/closebtn.svg"){
+                $(".funcselset>.wrap:eq(1)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                //command = '{"penwufuncsel":true}'; 
+                funcselswitch =  funcselswitch | 0x02;
+            }else{
+                $(".funcselset>.wrap:eq(1)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                //command = '{"penwufuncsel":false}'; 
+                funcselswitch =  funcselswitch & 0xfd;
+            }
+            //penwufuncseltsflag = !penwufuncseltsflag;
+            command = '{"funcselswitch":'+funcselswitch+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //var songfeng1funcseltsflag = true;
+        //送风1输出
+        $(".funcselset>.wrap:eq(2)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if($(".funcselset>.wrap:eq(2)>.col_50:last-child>img").attr("src")=="../image/closebtn.svg"){
+                $(".funcselset>.wrap:eq(2)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                //command = '{"songfeng1funcsel":true}'; 
+                funcselswitch =  funcselswitch | 0x04;
+            }else{
+                $(".funcselset>.wrap:eq(2)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                //command = '{"songfeng1funcsel":false}'; 
+                funcselswitch =  funcselswitch & 0xfb;
+            }
+            //songfeng1funcseltsflag = !songfeng1funcseltsflag;
+            command = '{"funcselswitch":'+funcselswitch+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //var songfeng2funcseltsflag = true;
+        //送风2输出
+        $(".funcselset>.wrap:eq(3)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if($(".funcselset>.wrap:eq(3)>.col_50:last-child>img").attr("src")=="../image/closebtn.svg"){
+                $(".funcselset>.wrap:eq(3)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                //command = '{"songfeng2funcsel":true}'; 
+                funcselswitch =  funcselswitch | 0x08;
+            }else{
+                $(".funcselset>.wrap:eq(3)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                //command = '{"songfeng2funcsel":false}'; 
+                funcselswitch =  funcselswitch & 0xf7;
+            }
+            //songfeng2funcseltsflag = !songfeng2funcseltsflag;
+            command = '{"funcselswitch":'+funcselswitch+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //var beiyongfuncseltsflag = true;
+        //备用输出
+        $(".funcselset>.wrap:eq(4)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if($(".funcselset>.wrap:eq(4)>.col_50:last-child>img").attr("src")=="../image/closebtn.svg"){
+                $(".funcselset>.wrap:eq(4)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                //command = '{"beiyongfuncsel":true}'; 
+                funcselswitch =  funcselswitch | 0x10;
+            }else{
+                $(".funcselset>.wrap:eq(4)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                //command = '{"beiyongfuncsel":false}'; 
+                funcselswitch =  funcselswitch & 0xef;
+            }
+            //beiyongfuncseltsflag = !beiyongfuncseltsflag;
+            command = '{"funcselswitch":'+funcselswitch+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //var queshuifuncseltsflag = true;
+        //缺水保护
+        $(".funcselset>.wrap:eq(5)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if($(".funcselset>.wrap:eq(5)>.col_50:last-child>img").attr("src")=="../image/closebtn.svg"){
+                $(".funcselset>.wrap:eq(5)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                //command = '{"queshuifuncsel":true}'; 
+                funcselswitch =  funcselswitch | 0x20;
+            }else{
+                $(".funcselset>.wrap:eq(5)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                //command = '{"queshuifuncsel":false}'; 
+                funcselswitch =  funcselswitch & 0xdf;
+            }
+            //queshuifuncseltsflag = !queshuifuncseltsflag;
+            command = '{"funcselswitch":'+funcselswitch+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //var qianyafuncseltsflag = true;
+        //欠压保护
+        $(".funcselset>.wrap:eq(6)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if($(".funcselset>.wrap:eq(6)>.col_50:last-child>img").attr("src")=="../image/closebtn.svg"){
+                $(".funcselset>.wrap:eq(6)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                //command = '{"qianyafuncsel":true}'; 
+                funcselswitch =  funcselswitch | 0x40;
+            }else{
+                $(".funcselset>.wrap:eq(6)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                //command = '{"qianyafuncsel":false}'; 
+                funcselswitch =  funcselswitch & 0xbf;
+            }
+            //qianyafuncseltsflag = !qianyafuncseltsflag;
+            command = '{"funcselswitch":'+funcselswitch+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //var tiaoyafuncseltsflag = true;
+        //调压使能
+        $(".funcselset>.wrap:eq(7)>.col_50:last-child>img").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            if($(".funcselset>.wrap:eq(7)>.col_50:last-child>img").attr("src")=="../image/closebtn.svg"){
+                $(".funcselset>.wrap:eq(7)>.col_50:last-child>img").attr("src","../image/openbtn.svg");
+                //command = '{"tiaoyafuncsel":true}'; 
+                funcselswitch =  funcselswitch | 0x80;
+            }else{
+                $(".funcselset>.wrap:eq(7)>.col_50:last-child>img").attr("src","../image/closebtn.svg"); 
+                //command = '{"tiaoyafuncsel":false}'; 
+                funcselswitch =  funcselswitch & 0x7f;
+            }
+            //tiaoyafuncseltsflag = !tiaoyafuncseltsflag;
+            command = '{"funcselswitch":'+funcselswitch+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //压力上限
+        $(".pressrangeset>.wrap:eq(0)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            command = '{"shangxianpress":'+$(".pressrangeset>.wrap:eq(0)>input").val()*10+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //压力下限
+        $(".pressrangeset>.wrap:eq(1)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            command = '{"xiaxianpress":'+$(".pressrangeset>.wrap:eq(1)>input").val()*10+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //压力设定
+        $(".pressrangeset>.wrap:eq(2)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            command = '{"shedingpress":'+$(".pressrangeset>.wrap:eq(2)>input").val()*10+'}'; 
+            publishcmd(topic, command);
+        });
+
+        //压力量程
+        $(".pressrangeset>.wrap:eq(3)>span:last-child").click(function(){
+            var topic = device_id + '/in';
+            var command;
+            command = '{"liangchengpress":'+$(".pressrangeset>.wrap:eq(3)>input").val()*10+'}'; 
+            publishcmd(topic, command);
+        });
+
+        // 日志打印在页面的部分
+        var i = 0;
+        console.log = ( function(old_funct, div_log) {
+                return function(text) {
+                    old_funct(text);
+                    var p = '';
+                    if (i % 2 == 0)
+                        p = '<p>';
+                    else
+                        p = '<p class=\'gray\'>';
+                    if ( typeof text === "object")
+                        div_log.innerHTML += p + JSON.stringify(text) + '</p>';
+                    else
+                        div_log.innerHTML += p + text + '</p>';
+                    div_log.scrollTop = div_log.scrollHeight;
+                    i += 1;
+                };
+            }(console.log.bind(console), document.getElementById("debug")));
+        console.error = console.debug = console.info = console.log;
+
+        function initpage() {
+            window.location.href = "./iframepage.html";
+        }
+    </script>
+</html>
